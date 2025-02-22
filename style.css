@@ -14,12 +14,15 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
+    gap: 24px;
     width: 98%;
-    margin: auto;
+
+    margin: 20px auto;
 }
 
 .wrapper > h2 {
     font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
 }
 
 .wrapper > textarea {
@@ -27,22 +30,47 @@ body {
     height: 150px;
 }
 
-.wrapper > pre {
+.output-wrapper {
+    width: 100%;
+    position: relative;
+}
+
+.output-wrapper > pre {
     border: 1px solid #ccc;
     background: #f4f4f4;;
     width: 100%;
     padding: 10px;
-
+    margin: 0;
+    
     white-space: pre-wrap;  /* if there is a space in word followed my the long word, then during the overflowing break the word from space */
     word-wrap: break-word;  /* if sigle word is too long it will break word, without overflowing */
 }
 
-pre .json-error { color: red; }
-pre .json-key { color: brown; font-weight: bold; }
-pre .json-string { color: green; }
-pre .json-number { color: blue; }
-pre .json-boolean { color: orange; }
-pre .json-null { color: red; }
+.output-wrapper > pre .json-error { color: red; }
+.output-wrapper > pre .json-key { color: brown; font-weight: bold; }
+.output-wrapper > pre .json-string { color: green; }
+.output-wrapper > pre .json-number { color: blue; }
+.output-wrapper > pre .json-boolean { color: orange; }
+.output-wrapper > pre .json-null { color: red; }
+
+.button-group {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin:5px;
+
+    display: flex;
+    gap: 2px;
+}
+
+.button-group > button {
+    opacity: 0.5;
+}
+
+.button-group > button:hover {
+    opacity: 1;
+}
+
 
 
 

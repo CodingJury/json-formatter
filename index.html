@@ -10,7 +10,13 @@
     <div class="wrapper">
         <h2>JSON Formatter</h2>
         <textarea id="jsonInput" placeholder="Paste your JSON here..." autofocus></textarea>
-        <pre id="jsonOutput"></pre>
+        <div class="output-wrapper">
+            <pre id="jsonOutput"></pre>
+            <div class="button-group">
+                <button onclick="jsonFormatter.copyToClipboard(this)" title="Copy to Clipboard">Copy</button>
+                <button onclick="jsonFormatter.downloadJSON()" title="Download JSON file">Download</button>
+            </div>
+        </div>
     </div>
 
     <script src="JSONFormatter.js"></script>

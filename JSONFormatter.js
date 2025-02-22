@@ -95,4 +95,29 @@ class JSONFormatter {
             this.#render();
         });
     }
+
+    copyToClipboard(copyElement) {
+        const output = this.outputElement.innerText;
+        navigator.clipboard.writeText(output).then(() => {
+            if(copyElement) {
+                copyElement.textContent = "Copied ! ";
+
+                // Reset button text after 2 seconds
+                setTimeout(() => {
+                    copyElement.textContent = "Copy";
+                }, 2000);
+            }
+        }).catch(err => {
+            console.error("Failed to copy:", err);
+        });
+    }
+
+    downloadJSON(filename = "formatted.json") {
+        const output = this.outputElement.innerText;
+        const blob = new Blob([output], { type: "application/json" });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = filename;
+        a.click();
+    }
 }

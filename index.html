@@ -9,10 +9,11 @@
 <body>
     <div class="wrapper">
         <h2>JSON Formatter</h2>
-        <textarea id="jsonInput" placeholder="Paste your JSON here..."></textarea>
+        <textarea oninput="onTextAreaInputChange()" id="jsonInput" placeholder="Paste your JSON here..."></textarea>
         <pre id="jsonOutput"></pre>
     </div>
 
-    <script src="script.js"></script>
+    <script src="JSONFormatter.js"></script>
+    <script src="init.js"></script>
 </body>
 </html>

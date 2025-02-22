@@ -24,7 +24,7 @@ body {
 
 .wrapper > textarea {
     width: 100%;
-    margin: 0;
+    height: 150px;
 }
 
 .wrapper > pre {
@@ -32,7 +32,17 @@ body {
     background: #f4f4f4;;
     width: 100%;
     padding: 10px;
+
+    white-space: pre-wrap;  /* if there is a space in word followed my the long word, then during the overflowing break the word from space */
+    word-wrap: break-word;  /* if sigle word is too long it will break word, without overflowing */
 }
+
+pre .json-error { color: red; }
+pre .json-key { color: brown; font-weight: bold; }
+pre .json-string { color: green; }
+pre .json-number { color: blue; }
+pre .json-boolean { color: orange; }
+pre .json-null { color: red; }
 
 
 

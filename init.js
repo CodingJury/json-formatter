@@ -4,6 +4,4 @@ const jsonFormatter = new JSONFormatter({
     outputElement: document.getElementById('jsonOutput')
 });
 
-function onTextAreaInputChange() {
-    jsonFormatter.render()
-}
+jsonFormatter.init()

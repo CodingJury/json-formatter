@@ -2,7 +2,21 @@ class JSONFormatter {
     constructor(config) {
         this.inputElement = config.inputElement;
         this.outputElement = config.outputElement;
-        this.indent = 4
+
+        this.INDENT = 4;
+        this.LOCAL_STORAGE_KEY = "jsonInputString";
+        this.DEBUG = false;
+
+        // Code to run during mounting
+        this.#loadFromLocalStorage();
+        this.#saveToLocalStorage();
+        this.#render()
+    }
+
+    #DEBUG_LOG(data, label="") {
+        if(this.DEBUG) {
+            console.log(`[${new Date().toISOString()}] ${label} : `, JSON.stringify(data, null, this.INDENT));
+        }
     }
 
     #result(status, dataOrMessage) {
@@ -18,9 +32,11 @@ class JSONFormatter {
 
     #validate() {
         const jsonString = this.inputElement.value;
+        this.#DEBUG_LOG(jsonString, "INPUT JSON STRING")
+
         try {
             const parsed = typeof jsonString === "string" ? JSON.parse(jsonString) : jsonString;
-            return this.#result(true, JSON.stringify(parsed, null, this.indent));
+            return this.#result(true, JSON.stringify(parsed, null, this.INDENT));
         } catch (error) {
             return this.#result(false, `Invalid JSON: ${error.message}`);
         }
@@ -48,12 +64,35 @@ class JSONFormatter {
         }).join("\n"); // Join lines back into formatted JSON string
     }
 
-    render() {
+    #loadFromLocalStorage() {
+        const savedJSON = localStorage.getItem(this.LOCAL_STORAGE_KEY);
+        if (savedJSON) {
+            this.inputElement.value = savedJSON;
+            this.#DEBUG_LOG(savedJSON, "CONTENT LOADED FROM LOCAL STORAGE")
+        }
+    }
+
+    #saveToLocalStorage() {
+        this.inputElement.addEventListener("input", () => {
+            const jsonString = this.inputElement.value;
+            localStorage.setItem(this.LOCAL_STORAGE_KEY, jsonString);
+        });
+    }
+
+    #render() {
         const validateResponse = this.#validate();
+        this.#DEBUG_LOG(validateResponse, "VALIDATE RESPONSE")
+
         if(validateResponse.status) {
             this.outputElement.innerHTML = this.#syntaxHighlight(validateResponse.data);
         } else {
             this.outputElement.innerHTML = `<span class="json-error">${validateResponse.message}</span>`;
         }
+    }
+
+    init() {
+        this.inputElement.addEventListener("input", () => {
+            this.#render();
+        });
     }
 }
